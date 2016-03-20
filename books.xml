@@ -1,0 +1,58 @@
+
+
+<book>
+
+  <title>Diffusion of Innovations</title>
+  <author>
+    <Primary>Everett M. Rogers</Primary>
+  </author>
+  <topics>
+	<Primary>Organizational Change Management</Primary>
+    <Secondary>Structured Problem Solving</Secondary>
+	<Tertiary>Innovation Diffusion</Tertiary>
+  </topics>
+  <audience>
+  	<Primary>Project Managers</Primary>
+    <Secondary>Executives</Secondary>
+	<Tertiary>Change Practitioners</Tertiary>
+  </audience>  
+  <publish_year>1962</publish_year>
+
+  <title>The Innovators Dilemma</title>
+  <author>
+    <Primary>Clayton M. Christiansen</Primary>
+  </author>
+  <topics>
+	<Primary>Organizational Change Management</Primary>
+    <Secondary>Structured Problem Solving</Secondary>
+	<Tertiary>Innovation Diffusion</Tertiary>
+  </topics>
+  <audience>
+  	<Primary>Project Managers</Primary>
+    <Secondary>Executives</Secondary>
+	<Tertiary>Change Practitioners</Tertiary>
+  </audience>  
+  <publish_year>1997</publish_year>
+
+
+  <title>The Four Disciplines of Execution</title>
+  <author>
+  	<Primary>Chris McChesney</Primary>
+    <Secondary>Sean Covey</Secondary>
+	<Tertiary>Jim Huling</Tertiary>
+	</author>
+  <topics>
+	<Primary>Organizational Change Management</Primary>
+    <Secondary>Structured Problem Solving</Secondary>
+	<Tertiary>Innovation Diffusion</Tertiary>
+  </topics>
+  <audience>
+  	<Primary>Project Managers</Primary>
+    <Secondary>Executives</Secondary>
+	<Tertiary>Change Practitioners</Tertiary>
+  </audience>  
+  <publish_year>2004</publish_year>
+
+</book>
+
+ 

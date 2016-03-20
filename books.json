@@ -1,0 +1,32 @@
+
+{"books" :[
+	{
+	"title"        :   "Diffusion of Innovations",
+    "authors"      :  ["Everett M. Rogers"],
+	"topics"       :  ["Organizational Change Management", "Structured Problem Solving",
+				       "Innovation Diffusion"],
+	"audience"     :  ["Project Managers", "Executives", "Change Practitioners"],
+	"publish_year" : 1962
+	},
+		
+	{
+	"title"        :   "The Innovators Dilemma",
+    "authors"      :  ["Clayton M. Christiansen"],
+	"topics"       :  ["Organizational Change Management", "Structured Problem Solving",
+				       "Innovation Diffusion"],
+	"audience"     :  ["Project Managers", "Executives", "Change Practitioners"],
+	"publish_year" : 1997
+	},
+
+	{
+	"title"        :   "The Four Disciplines of Execution",
+    "authors"      :  ["Chris McChesney","Sean Covey","Jim Huling"],
+	"topics"       :  ["Organizational Change Management", "Structured Problem Solving",
+				       "Innovation Diffusion"],
+	"audience"     :  ["Project Managers", "Executives", "Change Practitioners"],
+	"publish_year" : 2004
+	}]
+}
+
+
+ 

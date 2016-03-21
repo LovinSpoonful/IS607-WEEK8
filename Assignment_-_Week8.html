@@ -75,9 +75,152 @@ img {
 <p>To help you better understand the different file structures, I’d prefer that you create each of these files “by hand” unless you’re already very comfortable with the file formats.</p>
 <p>Write R code, using your packages of choice, to load the information from each of the three sources into separate R data frames. Are the three data frames identical?</p>
 <p>Your deliverable is the three source files and the R code. If you can, package your assignment solution up into an .Rmd file and publish to rpubs.com. [This will also require finding a way to make your three text files accessible from the web].</p>
+<pre class="r"><code>library(XML)</code></pre>
+<pre><code>## Warning: package 'XML' was built under R version 3.2.3</code></pre>
 <pre class="r"><code>library(RCurl)</code></pre>
 <pre><code>## Warning: package 'RCurl' was built under R version 3.2.3</code></pre>
 <pre><code>## Loading required package: bitops</code></pre>
+<pre class="r"><code>library(jsonlite)</code></pre>
+<pre><code>## Warning: package 'jsonlite' was built under R version 3.2.3</code></pre>
+<pre class="r"><code>library (plyr)
+
+#read html file
+sURL &lt;- &quot;https://raw.githubusercontent.com/LovinSpoonful/IS607-WEEK8/master/books.html&quot;
+sHTML &lt;- getURL(sURL)
+tHTML &lt;- htmlTreeParse(sHTML)   #this is just for reference, to show the structure
+
+
+# parse html
+doc = htmlParse(sHTML, asText=TRUE)
+plain.text &lt;- xpathSApply(doc, &quot;//text()[not(ancestor::script)][not(ancestor::style)][not(ancestor::noscript)][not(ancestor::form)]&quot;, xmlValue)
+v &lt;- capture.output(cat(paste(plain.text, collapse = &quot; &quot;)))
+dfHTML &lt;- data.frame(v)
+dfHTML</code></pre>
+<pre><code>##                                                v
+## 1                         Rob's Top Three Books 
+## 2                                               
+## 3                                               
+## 4                                               
+## 5                      Diffusion of Innovations 
+## 6                             Everett M. Rogers 
+## 7                                        Topics 
+## 8            \t Organizational Change Management 
+## 9                    Structured Problem Solving 
+## 10                         Innovation Diffusion 
+## 11                                     Audience 
+## 12                             Project Managers 
+## 13                                   Executives 
+## 14                         Change Practitioners 
+## 15                                              
+## 16                                  Publish Year
+## 17                                              
+## 18                                          1962
+## 19                       The Innovators Dilemma 
+## 20                         Clayton Christiansen 
+## 21                                       Topics 
+## 22             Organizational Change Management 
+## 23                   Structured Problem Solving 
+## 24                         Innovation Diffusion 
+## 25                                     Audience 
+## 26                             Project Managers 
+## 27                                   Executives 
+## 28                         Change Practitioners 
+## 29                                              
+## 30                                  Publish Year
+## 31                                              
+## 32                                          1997
+## 33            The Four Disciplines of Execution 
+## 34      Chris McChesney, Sean Covey, Jim Huling 
+## 35                                       Topics 
+## 36             Organizational Change Management 
+## 37                   Structured Problem Solving 
+## 38                         Innovation Diffusion 
+## 39                                     Audience 
+## 40                             Project Managers 
+## 41                                   Executives 
+## 42                         Change Practitioners 
+## 43                                              
+## 44                                  Publish Year
+## 45                                              
+## 46                                          2004
+## 47</code></pre>
+<pre class="r"><code>#XML Example:
+sURL &lt;- &quot;https://raw.githubusercontent.com/LovinSpoonful/IS607-WEEK8/master/books.xml&quot;
+xData &lt;- getURL(sURL)
+xDoc &lt;- xmlParse(xData)
+lXML &lt;- xmlToList(xData)
+dfXML &lt;- ldply (lXML, data.frame)
+print(dfXML)</code></pre>
+<pre><code>##             .id                            X..i..
+## 1         title          Diffusion of Innovations
+## 2        author                              &lt;NA&gt;
+## 3        topics                              &lt;NA&gt;
+## 4      audience                              &lt;NA&gt;
+## 5  publish_year                              1962
+## 6         title            The Innovators Dilemma
+## 7        author                              &lt;NA&gt;
+## 8        topics                              &lt;NA&gt;
+## 9      audience                              &lt;NA&gt;
+## 10 publish_year                              1997
+## 11        title The Four Disciplines of Execution
+## 12       author                              &lt;NA&gt;
+## 13       topics                              &lt;NA&gt;
+## 14     audience                              &lt;NA&gt;
+## 15 publish_year                              2004
+##                             Primary                  Secondary
+## 1                              &lt;NA&gt;                       &lt;NA&gt;
+## 2                 Everett M. Rogers                       &lt;NA&gt;
+## 3  Organizational Change Management Structured Problem Solving
+## 4                  Project Managers                 Executives
+## 5                              &lt;NA&gt;                       &lt;NA&gt;
+## 6                              &lt;NA&gt;                       &lt;NA&gt;
+## 7           Clayton M. Christiansen                       &lt;NA&gt;
+## 8  Organizational Change Management Structured Problem Solving
+## 9                  Project Managers                 Executives
+## 10                             &lt;NA&gt;                       &lt;NA&gt;
+## 11                             &lt;NA&gt;                       &lt;NA&gt;
+## 12                  Chris McChesney                 Sean Covey
+## 13 Organizational Change Management Structured Problem Solving
+## 14                 Project Managers                 Executives
+## 15                             &lt;NA&gt;                       &lt;NA&gt;
+##                Tertiary
+## 1                  &lt;NA&gt;
+## 2                  &lt;NA&gt;
+## 3  Innovation Diffusion
+## 4  Change Practitioners
+## 5                  &lt;NA&gt;
+## 6                  &lt;NA&gt;
+## 7                  &lt;NA&gt;
+## 8  Innovation Diffusion
+## 9  Change Practitioners
+## 10                 &lt;NA&gt;
+## 11                 &lt;NA&gt;
+## 12           Jim Huling
+## 13 Innovation Diffusion
+## 14 Change Practitioners
+## 15                 &lt;NA&gt;</code></pre>
+<pre class="r"><code>#JSON example:
+sURL &lt;- &quot;https://raw.githubusercontent.com/LovinSpoonful/IS607-WEEK8/master/books.json&quot;
+l = jsonlite::fromJSON(sURL)
+df &lt;- ldply (l, data.frame)
+print(df)</code></pre>
+<pre><code>##     .id                             title
+## 1 books          Diffusion of Innovations
+## 2 books            The Innovators Dilemma
+## 3 books The Four Disciplines of Execution
+##                                   authors
+## 1                       Everett M. Rogers
+## 2                 Clayton M. Christiansen
+## 3 Chris McChesney, Sean Covey, Jim Huling
+##                                                                               topics
+## 1 Organizational Change Management, Structured Problem Solving, Innovation Diffusion
+## 2 Organizational Change Management, Structured Problem Solving, Innovation Diffusion
+## 3 Organizational Change Management, Structured Problem Solving, Innovation Diffusion
+##                                             audience publish_year
+## 1 Project Managers, Executives, Change Practitioners         1962
+## 2 Project Managers, Executives, Change Practitioners         1997
+## 3 Project Managers, Executives, Change Practitioners         2004</code></pre>
+<p>The dataframes are not identical.</p>
 </div>
 
 

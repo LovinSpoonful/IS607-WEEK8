@@ -28,12 +28,43 @@ accessible from the web].
 
 ```{r}
 
+library(XML)
 library(RCurl)
+library(jsonlite)
+library (plyr)
+
+#read the html file
+sURL <- "https://raw.githubusercontent.com/LovinSpoonful/IS607-WEEK8/master/books.html"
+sHTML <- getURL(sURL)
+tHTML <- htmlTreeParse(sHTML)   #this is just for reference, to show the structure
+
+
+# parse html
+doc = htmlParse(sHTML, asText=TRUE)
+plain.text <- xpathSApply(doc, "//text()[not(ancestor::script)][not(ancestor::style)][not(ancestor::noscript)][not(ancestor::form)]", xmlValue)
+v <- capture.output(cat(paste(plain.text, collapse = " ")))
+dfHTML <- data.frame(v)
+dfHTML
+
+
+#XML Example:
+sURL <- "https://raw.githubusercontent.com/LovinSpoonful/IS607-WEEK8/master/books.xml"
+xData <- getURL(sURL)
+xDoc <- xmlParse(xData)
+lXML <- xmlToList(xData)
+dfXML <- ldply (lXML, data.frame)
+print(dfXML)
+
+
+#JSON example:
+sURL <- "https://raw.githubusercontent.com/LovinSpoonful/IS607-WEEK8/master/books.json"
+l = jsonlite::fromJSON(sURL)
+df <- ldply (l, data.frame)
+print(df)
+
 
 ```
 
-
-
-
+The dataframes are not identical.
 
 
